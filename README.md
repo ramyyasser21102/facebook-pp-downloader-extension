@@ -1,6 +1,6 @@
-<p align="center"><img src="docs/assets/logo.png" alt="FB PP Downloader logo" width="128"></p>
+<p align="center"><img src="docs/assets/logo.png" alt="PP Downloader logo" width="128"></p>
 
-# FB PP Downloader
+# PP Downloader
 
 Browser extension (Chrome, Firefox) that saves Facebook profile pictures in the highest resolution available.
 
@@ -15,6 +15,14 @@ Browser extension (Chrome, Firefox) that saves Facebook profile pictures in the 
    <img src="docs/assets/screenshots/02-select-profile-picture.webp" alt="Pick mode highlighting a profile picture" width="720">
 
 Feed and suggestion thumbnails only exist in low resolution. For those, the extension offers to open the profile so you can pick the full-size picture there.
+
+## Disclaimer
+
+PP Downloader is an independent project. It is not affiliated with, endorsed by, or sponsored by Meta Platforms, Inc. Facebook is a trademark of Meta Platforms, Inc. Use it only on content you are allowed to access, and follow Facebook's terms.
+
+## License
+
+[MIT](LICENSE)
 
 ## Stack
 

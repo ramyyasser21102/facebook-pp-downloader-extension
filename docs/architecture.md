@@ -42,3 +42,9 @@ Options page, messaging module, runtime validation (zod), browser-specific folde
 
 - Firefox add-on ID is `fb-pp-downloader@ramyyasser21102.github.io` (self-chosen, set in `wxt.config.ts`). It is claimed on the first AMO upload and must never change afterwards.
 - The Firefox build declares `data_collection_permissions: none`. Update if that changes.
+
+## Naming and legal notes
+
+- The product name is "PP Downloader". It deliberately avoids "Facebook" in the name, per Meta's trademark guidance; "Facebook" appears only as a factual reference in descriptions. The README carries a non-affiliation disclaimer, and the store listings should too.
+- The extension stays user-initiated: one click per picture, no bulk or background fetching. This keeps it away from "automated data collection" in Meta's Terms of Service. Do not add batch downloads without revisiting this.
+- Code license: MIT (`LICENSE`). It governs reuse of this code only; it does not grant any permission from Facebook.
