@@ -2,10 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { fetchBestImage } from '@/features/profile-picture/download';
 import {
   pickImage,
+  profileLinkFor,
   profilePhotoUrl,
 } from '@/features/profile-picture/find-image';
 import {
   fileNameFromUrl,
+  hasMaxSize,
   isFacebookCdnUrl,
   upgradeProfilePictureUrl,
 } from '@/features/profile-picture/url';
@@ -115,5 +117,23 @@ describe('profilePhotoUrl / pickImage', () => {
     expect(hit?.element.id).toBe('top');
     expect(hit?.url).toBe(SAMPLE);
     expect(pickImage([el('overlay')])).toBeNull();
+  });
+});
+
+describe('hasMaxSize / profileLinkFor', () => {
+  it('detects whether a URL can be upgraded', () => {
+    expect(hasMaxSize(SAMPLE)).toBe(true);
+    expect(hasMaxSize(SAMPLE.replace('&cstp=mx960x960', ''))).toBe(false);
+  });
+
+  it('returns the facebook.com link around the picked image', () => {
+    document.body.innerHTML = `
+      <a href="https://www.facebook.com/someone"><svg><image id="a" xlink:href="${SAMPLE}"></image></svg></a>
+      <a href="https://evil.example/x"><img id="b" src="${SAMPLE}"></a>
+      <img id="c" src="${SAMPLE}">`;
+    const el = (id: string) => document.getElementById(id) as Element;
+    expect(profileLinkFor(el('a'))).toBe('https://www.facebook.com/someone');
+    expect(profileLinkFor(el('b'))).toBeNull();
+    expect(profileLinkFor(el('c'))).toBeNull();
   });
 });

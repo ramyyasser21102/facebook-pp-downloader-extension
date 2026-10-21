@@ -19,6 +19,11 @@ export function upgradeProfilePictureUrl(src: string): string | null {
   return url.toString();
 }
 
+/** True when the URL carries a maximum size (`cstp=mx…`), so it can be upgraded. */
+export function hasMaxSize(src: string): boolean {
+  return upgradeProfilePictureUrl(src) !== null;
+}
+
 export function isFacebookCdnUrl(src: string): boolean {
   try {
     const { protocol, hostname } = new URL(src);
