@@ -11,7 +11,7 @@ WXT 0.21 builds Firefox as MV2 by default; the scripts pass `--mv3` so both brow
 ## Known limitations
 
 - `web-ext lint` reports 2 `UNSAFE_VAR_ASSIGNMENT` warnings from `innerHTML` use inside the bundled React DOM. These are not our code. Review before store submission.
-- Firefox needs an add-on ID in MV3 (placeholder set).
+- Firefox needs an add-on ID in MV3: `fb-pp-downloader@ramyyasser21102.github.io`. It is claimed on first AMO upload and must not change afterwards.
 - Firefox E2E automation is weak; rely on the manual checklist.
 
 ## Test method

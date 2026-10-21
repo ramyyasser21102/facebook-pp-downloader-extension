@@ -14,11 +14,12 @@ export default defineConfig({
     // Least privilege: no host or API permissions until a feature needs them.
     permissions: ['storage'],
     // Firefox MV3 requires an add-on ID and a data-collection declaration.
-    // TODO: replace the placeholder ID with one you control before publishing.
+    // Self-chosen ID; it is claimed on first upload to AMO and must never change
+    // afterwards, or Firefox treats it as a different add-on.
     ...(browser === 'firefox' && {
       browser_specific_settings: {
         gecko: {
-          id: 'pp-downloader@example.invalid',
+          id: 'fb-pp-downloader@ramyyasser21102.github.io',
           data_collection_permissions: { required: ['none'] },
         },
       },

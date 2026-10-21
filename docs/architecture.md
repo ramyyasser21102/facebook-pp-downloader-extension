@@ -40,5 +40,5 @@ Options page, messaging module, runtime validation (zod), browser-specific folde
 
 ## Open items
 
-- Firefox add-on ID in `wxt.config.ts` is a placeholder (`@example.invalid`); replace before publishing.
+- Firefox add-on ID is `fb-pp-downloader@ramyyasser21102.github.io` (self-chosen, set in `wxt.config.ts`). It is claimed on the first AMO upload and must never change afterwards.
 - The Firefox build declares `data_collection_permissions: none`. Update if that changes.
