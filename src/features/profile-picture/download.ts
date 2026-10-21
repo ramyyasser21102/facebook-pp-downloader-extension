@@ -38,9 +38,31 @@ export function saveBlob(blob: Blob, fileName: string): void {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 10_000);
 }
 
-export async function downloadProfilePicture(src: string): Promise<boolean> {
+export type SavedPicture = {
+  fileName: string;
+  width?: number;
+  height?: number;
+};
+
+async function dimensions(
+  blob: Blob,
+): Promise<{ width?: number; height?: number }> {
+  try {
+    const bitmap = await createImageBitmap(blob);
+    const { width, height } = bitmap;
+    bitmap.close();
+    return { width, height };
+  } catch {
+    return {};
+  }
+}
+
+export async function downloadProfilePicture(
+  src: string,
+): Promise<SavedPicture | null> {
   const best = await fetchBestImage(src);
-  if (!best) return false;
-  saveBlob(best.blob, fileNameFromUrl(best.url));
-  return true;
+  if (!best) return null;
+  const fileName = fileNameFromUrl(best.url);
+  saveBlob(best.blob, fileName);
+  return { fileName, ...(await dimensions(best.blob)) };
 }
