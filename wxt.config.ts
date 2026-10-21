@@ -10,7 +10,8 @@ export default defineConfig({
   }),
   manifest: ({ browser }) => ({
     name: 'Facebook PP Downloader',
-    description: 'Download Facebook profile pictures',
+    description:
+      'Save Facebook profile pictures in the highest resolution available.',
     // Least privilege: no host or API permissions until a feature needs them.
     permissions: ['storage'],
     // Firefox MV3 requires an add-on ID and a data-collection declaration.

@@ -1,8 +1,20 @@
 <p align="center"><img src="docs/assets/logo.png" alt="FB PP Downloader logo" width="128"></p>
 
-# Facebook PP Downloader
+# FB PP Downloader
 
-Cross-browser (Chrome, Firefox) extension for downloading Facebook profile pictures. The foundation is in place; product features are not implemented yet.
+Browser extension (Chrome, Firefox) that saves Facebook profile pictures in the highest resolution available.
+
+## Usage
+
+1. Open Facebook and click the extension icon, then **Pick picture**.
+
+   <img src="docs/assets/screenshots/01-pick-picture.webp" alt="Popup with the Pick picture button" width="360">
+
+2. Click a profile picture on the page. It saves automatically; Esc cancels.
+
+   <img src="docs/assets/screenshots/02-select-profile-picture.webp" alt="Pick mode highlighting a profile picture" width="720">
+
+Feed and suggestion thumbnails only exist in low resolution. For those, the extension offers to open the profile so you can pick the full-size picture there.
 
 ## Stack
 
@@ -45,6 +57,7 @@ CI (`.github/workflows/ci.yml`) runs all of the above except the dev servers and
 
 ## Branding assets
 
+- Screenshots: `docs/assets/screenshots/` (numbered in usage order).
 - Master logo: `src/assets/branding/icon.svg` (used in the popup header).
 - Extension icons: `public/icon/{16,32,48,96,128}.png`, rendered from the master SVG.
 - Repo logo and social preview: `docs/assets/logo.png` (512×512) and `docs/assets/social-preview.png` (1280×640). Upload the social preview under GitHub → Settings → Social preview; it cannot be set from the repo.

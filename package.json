@@ -1,6 +1,6 @@
 {
   "name": "facebook-pp-downloader-extension",
-  "description": "Cross-browser extension for downloading Facebook profile pictures",
+  "description": "Save Facebook profile pictures in the highest resolution available.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
