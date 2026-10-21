@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   manifest: ({ browser }) => ({
-    name: 'Facebook PP Downloader',
+    name: 'PP Downloader',
     description:
       'Save Facebook profile pictures in the highest resolution available.',
     // Least privilege: no host or API permissions until a feature needs them.

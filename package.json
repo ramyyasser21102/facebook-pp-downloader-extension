@@ -1,7 +1,8 @@
 {
-  "name": "facebook-pp-downloader-extension",
+  "name": "pp-downloader",
   "description": "Save Facebook profile pictures in the highest resolution available.",
   "private": true,
+  "license": "MIT",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
