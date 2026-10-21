@@ -1,5 +1,6 @@
 import { MousePointerClick } from 'lucide-react';
 import { useState } from 'react';
+import logo from '@/assets/branding/icon.svg';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
@@ -43,7 +44,10 @@ export default function App() {
     <TooltipProvider>
       <main className="flex flex-col gap-3 p-3">
         <header className="flex items-center justify-between">
-          <h1 className="text-base font-semibold">PP Downloader</h1>
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="" className="size-6" />
+            <h1 className="text-base font-semibold">PP Downloader</h1>
+          </div>
           <ThemeToggle />
         </header>
         <Card>

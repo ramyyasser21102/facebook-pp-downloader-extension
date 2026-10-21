@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/assets/logo.png" alt="FB PP Downloader logo" width="128"></p>
+
 # Facebook PP Downloader
 
 Cross-browser (Chrome, Firefox) extension for downloading Facebook profile pictures. The foundation is in place; product features are not implemented yet.
@@ -40,3 +42,9 @@ CI (`.github/workflows/ci.yml`) runs all of the above except the dev servers and
 - **Color tokens:** `src/assets/styles/theme.css`, OKLCH semantic variables for `:root` (light) and `.dark`. Change the accent by editing `--primary`, `--primary-foreground` and `--ring` in both blocks. Use semantic utilities (`bg-background`, `text-muted-foreground`, `border-border`) and never raw colors in components.
 - **Theme behavior:** `src/lib/theme.ts` and `src/hooks/use-theme.ts`. `system` follows the OS; an explicit light/dark choice is stored in `browser.storage.local` under `theme` and syncs to every open extension page.
 - **Adding a page** (options, etc.): import `@/assets/styles/theme.css` and call `watchTheme`/`applyTheme` the same way `src/entrypoints/popup/main.tsx` does.
+
+## Branding assets
+
+- Master logo: `src/assets/branding/icon.svg` (used in the popup header).
+- Extension icons: `public/icon/{16,32,48,96,128}.png`, rendered from the master SVG.
+- Repo logo and social preview: `docs/assets/logo.png` (512×512) and `docs/assets/social-preview.png` (1280×640). Upload the social preview under GitHub → Settings → Social preview; it cannot be set from the repo.
