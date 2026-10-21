@@ -45,11 +45,14 @@ pnpm dev:firefox    # Firefox (MV3) with HMR
 | `pnpm compile`                      | Type check                          |
 | `pnpm lint` / `pnpm format` | Biome check (lint, format, imports) / auto-fix |
 | `pnpm test`                         | Vitest unit tests                   |
+| `pnpm test:e2e` | Playwright E2E in Chromium (run `pnpm build` first) |
 | `pnpm build` / `pnpm build:firefox` | Production builds into `.output/`   |
 | `pnpm lint:firefox`                 | `web-ext lint` on the Firefox build |
 | `pnpm zip` / `pnpm zip:firefox`     | Store-ready zips                    |
 
-CI (`.github/workflows/ci.yml`) runs all of the above except the dev servers and zips.
+CI (`.github/workflows/ci.yml`) runs all of the above except the dev servers and zips. Firefox is not covered by E2E (Playwright cannot load Firefox extensions); use the manual checklist in `docs/browser-compatibility.md`.
+
+Store copy and permission justifications: `docs/store-listing.md`.
 
 ## Loading the build manually
 
