@@ -16,7 +16,7 @@ WXT 0.21 builds Firefox as MV2 by default; the scripts pass `--mv3` so both brow
 
 ## Test method
 
-Both browsers were driven by throwaway scripts (not committed): Chrome via puppeteer-core `installExtension`, Firefox via selenium-webdriver `installAddon` with `MOZ_REMOTE_ALLOW_SYSTEM_ACCESS=1`. Branded Chrome ignores `--load-extension`. Toolbar-popup behavior (the real action popup) was not exercised; the popup page was opened as a tab.
+Chrome behavior is now covered by the committed Playwright suite in `tests/e2e/` (fake facebook.com page, Chromium only). The earlier manual checks used throwaway scripts: Chrome via puppeteer-core `installExtension`, Firefox via selenium-webdriver `installAddon` with `MOZ_REMOTE_ALLOW_SYSTEM_ACCESS=1`. Branded Chrome ignores `--load-extension`. Toolbar-popup behavior (the real action popup) was not exercised; the popup page was opened as a tab.
 
 ## Manual Firefox checklist
 
