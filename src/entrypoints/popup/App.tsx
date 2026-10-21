@@ -1,5 +1,5 @@
 import { MousePointerClick } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '@/assets/branding/icon.svg';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
@@ -11,33 +11,36 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import type { ContentRequest, ContentResponse } from '@/messaging';
+import { isContentScriptReady, startPicking } from '@/messaging/active-tab';
 
-type Status =
-  | { kind: 'idle' }
-  | { kind: 'busy' }
-  | { kind: 'error'; text: string };
+type Page = 'checking' | 'ready' | 'unavailable';
 
-async function requestPicking(): Promise<ContentResponse> {
-  const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
-  if (tab?.id === undefined) return { ok: false, error: 'No active tab.' };
-  const request: ContentRequest = { kind: 'start-picking' };
-  try {
-    return (await browser.tabs.sendMessage(tab.id, request)) as ContentResponse;
-  } catch {
-    return { ok: false, error: 'Open a Facebook profile page first.' };
-  }
-}
+const STEPS = [
+  'Click Pick picture.',
+  'Click a profile picture on the page.',
+  'It saves automatically. Esc cancels.',
+];
 
 export default function App() {
-  const [status, setStatus] = useState<Status>({ kind: 'idle' });
+  const [page, setPage] = useState<Page>('checking');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    void isContentScriptReady().then((ready) =>
+      setPage(ready ? 'ready' : 'unavailable'),
+    );
+  }, []);
 
   async function onPick() {
-    setStatus({ kind: 'busy' });
-    const result = await requestPicking();
-    setStatus(
-      result.ok ? { kind: 'idle' } : { kind: 'error', text: result.error },
-    );
+    setBusy(true);
+    setError(null);
+    const result = await startPicking();
+    if (result.ok) window.close();
+    else {
+      setError(result.error);
+      setBusy(false);
+    }
   }
 
   return (
@@ -54,23 +57,30 @@ export default function App() {
           <CardHeader>
             <CardTitle>Profile picture</CardTitle>
             <CardDescription>
-              Click Pick, then click the picture on the Facebook page. Esc
-              cancels.
+              {page === 'unavailable'
+                ? 'Open a Facebook page to use this. If Facebook is already open, reload that tab.'
+                : 'Save a profile picture in the highest resolution available.'}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2">
+          <CardContent className="flex flex-col gap-3">
             <Button
               className="w-full"
-              disabled={status.kind === 'busy'}
+              disabled={page !== 'ready' || busy}
               onClick={onPick}
             >
-              <MousePointerClick />{' '}
-              {status.kind === 'busy' ? 'Starting…' : 'Pick picture'}
+              <MousePointerClick /> {busy ? 'Starting…' : 'Pick picture'}
             </Button>
-            {status.kind === 'error' && (
+            {error && (
               <p role="alert" className="text-sm text-destructive">
-                {status.text}
+                {error}
               </p>
+            )}
+            {page === 'ready' && (
+              <ol className="list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
+                {STEPS.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
             )}
           </CardContent>
         </Card>

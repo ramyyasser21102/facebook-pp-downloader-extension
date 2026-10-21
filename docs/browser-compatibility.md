@@ -3,7 +3,7 @@
 | Browser                            | Build                                                                     | Status                                                                                                                  |
 | ---------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Chrome (and Chromium: Edge, Brave) | `pnpm build` → `.output/chrome-mv3`, service-worker background | Tested in Chrome 156: loads, popup renders, theme choice persists and propagates to a second open page, no console errors. Other Chromium browsers untested. |
-| Firefox | `pnpm build:firefox` → `.output/firefox-mv3` (MV3, event-page background) | Tested in Firefox 158 as a temporary add-on: loads, popup renders, theme choice persists to `storage.local` and a newly opened popup tab reads it. Live cross-page propagation not yet checked in Firefox. |
+| Firefox | `pnpm build:firefox` → `.output/firefox-mv3` (MV3, event-page background) | Tested in Firefox 158 as a temporary add-on: loads, popup renders, theme choice persists to `storage.local` and a newly opened popup tab reads it. Live cross-page propagation not yet checked in Firefox. Manually tested by the maintainer on real Facebook: pick mode, glow, toast and download work the same as in Chrome. |
 | Safari                             | not targeted                                                              | Needs Xcode conversion.                                                                                                 |
 
 WXT 0.21 builds Firefox as MV2 by default; the scripts pass `--mv3` so both browsers use MV3.

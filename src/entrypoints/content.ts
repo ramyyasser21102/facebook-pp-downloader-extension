@@ -40,7 +40,7 @@ export default defineContentScript({
       if (sender.id !== browser.runtime.id || !isContentRequest(message))
         return;
       // Pick mode outlives the popup, so acknowledge now and run in the page.
-      void pickAndDownload();
+      if (message.kind === 'start-picking') void pickAndDownload();
       sendResponse({ ok: true });
     });
   },
