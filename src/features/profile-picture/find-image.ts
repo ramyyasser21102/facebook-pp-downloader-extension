@@ -28,3 +28,25 @@ export function pickImage(
   }
   return null;
 }
+
+function isFacebookPage(url: URL): boolean {
+  return (
+    url.protocol === 'https:' &&
+    (url.hostname === 'facebook.com' || url.hostname.endsWith('.facebook.com'))
+  );
+}
+
+/**
+ * The Facebook page the picked image links to (normally the person's
+ * profile), or null when the image is not inside a link to facebook.com.
+ */
+export function profileLinkFor(element: Element): string | null {
+  const href = element.closest('a[href]')?.getAttribute('href');
+  if (!href) return null;
+  try {
+    const url = new URL(href, location.href);
+    return isFacebookPage(url) ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}

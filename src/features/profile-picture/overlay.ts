@@ -14,7 +14,21 @@ const STYLE = `
   .hint { top: 16px; }
   .toast { bottom: 24px; }
   .toast.error { background: #b91c1c; }
+  .prompt { bottom: 24px; display: none; max-width: min(92vw, 560px); border-radius: 16px;
+    pointer-events: auto; text-align: center; }
+  .prompt p { margin: 0 0 10px; }
+  .prompt .actions { display: flex; gap: 8px; justify-content: center; }
+  .prompt button { all: unset; cursor: pointer; padding: 8px 14px; border-radius: 999px;
+    font: 600 13px/1 system-ui, sans-serif; background: #187ff2; color: #fff; }
+  .prompt button.secondary { background: rgba(248, 250, 255, .16); }
+  .prompt button:focus-visible { outline: 2px solid #f8faff; outline-offset: 2px; }
 `;
+
+export type PromptAction = {
+  label: string;
+  secondary?: boolean;
+  onClick: () => void;
+};
 
 export type ToastKind = 'success' | 'error';
 
@@ -30,16 +44,29 @@ export function createOverlay() {
     <div class="glow"></div>
     <div class="box"></div>
     <div class="pill hint" role="status"></div>
-    <div class="pill toast" role="status" aria-live="polite"></div>`;
+    <div class="pill toast" role="status" aria-live="polite"></div>
+    <div class="pill prompt" role="alertdialog" aria-label="Low resolution"><p></p><div class="actions"></div></div>`;
   document.documentElement.appendChild(host);
 
   const glow = root.querySelector<HTMLElement>('.glow');
   const box = root.querySelector<HTMLElement>('.box');
   const hint = root.querySelector<HTMLElement>('.hint');
   const toast = root.querySelector<HTMLElement>('.toast');
-  if (!glow || !box || !hint || !toast)
+  const prompt = root.querySelector<HTMLElement>('.prompt');
+  const promptText = root.querySelector<HTMLElement>('.prompt p');
+  const promptActions = root.querySelector<HTMLElement>('.prompt .actions');
+  if (
+    !glow ||
+    !box ||
+    !hint ||
+    !toast ||
+    !prompt ||
+    !promptText ||
+    !promptActions
+  )
     throw new Error('Overlay failed to render');
   let toastTimer: number | undefined;
+  let promptTimer: number | undefined;
 
   return {
     highlight(rect: DOMRect | null) {
@@ -74,7 +101,29 @@ export function createOverlay() {
         toast.style.display = 'none';
       }, ms);
     },
+    /** A message with buttons; stays until an action is chosen or `ms` passes. */
+    showPrompt(text: string, actions: PromptAction[], ms = 12000) {
+      window.clearTimeout(promptTimer);
+      promptText.textContent = text;
+      promptActions.replaceChildren(
+        ...actions.map(({ label, secondary, onClick }) => {
+          const button = document.createElement('button');
+          button.textContent = label;
+          if (secondary) button.className = 'secondary';
+          button.addEventListener('click', () => {
+            prompt.style.display = 'none';
+            onClick();
+          });
+          return button;
+        }),
+      );
+      prompt.style.display = 'block';
+      promptTimer = window.setTimeout(() => {
+        prompt.style.display = 'none';
+      }, ms);
+    },
     dispose() {
+      window.clearTimeout(promptTimer);
       window.clearTimeout(toastTimer);
       host.remove();
     },
